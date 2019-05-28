@@ -1,0 +1,16 @@
+__pycache__/
+data/
+results/
+eda/
+plots/
+eda_stats_plots/
+*.DS_Store
+*.pyc
+*.pkl.gz
+*.directory
+
+main_plot.py
+search_euclidean.py
+search_infinity.py
+summary_statistics.py
+visualize_centroids.py
