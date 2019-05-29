@@ -17,8 +17,8 @@ import math
 import os
 
 if __name__ == "__main__":
-	args = ld.argparser(dataset='mnist', epsilon=1.58, alpha=0.01, clusters=10, delta=0.25)
-	# args = ld.argparser(dataset='cifar', epsilon=0.2453, alpha=0.05, clusters=5, delta=0)
+	args = ld.argparser(dataset='mnist', metric='euclidean', epsilon=1.58, alpha=0.01, clusters=10, delta=0.25)
+	# args = ld.argparser(dataset='cifar',metric='euclidean', epsilon=0.2453, alpha=0.05, clusters=5, delta=0)
 	setproctitle.setproctitle('python')
 
 	print('dataset: {dataset}\t\t' 'metric: {metric}\t\t'
@@ -43,8 +43,8 @@ if __name__ == "__main__":
 	#### load the datasets
 	if args.dataset == 'mnist':
 		train_loader, test_loader, valid_loader = ld.mnist_loaders(path='./data/'+args.dataset, 
-																	seed=args.seed,
-																	ratio=args.ratio)
+																seed=args.seed,
+																ratio=args.ratio)
 		for i, (X,y) in enumerate(train_loader):
 			train_data = X.view(-1, 28*28).to(device)
 		for i, (X,y) in enumerate(test_loader):
@@ -52,8 +52,8 @@ if __name__ == "__main__":
 
 	elif args.dataset == 'cifar':
 		train_loader, test_loader, valid_loader = ld.cifar_loaders(path='./data/'+args.dataset, 
-																	seed=args.seed, 
-																	ratio=args.ratio)
+																seed=args.seed, 
+																ratio=args.ratio)
 		for i, (X,y) in enumerate(train_loader):
 			train_data = X.view(-1, 3*32*32).to(device)
 		for i, (X,y) in enumerate(test_loader):

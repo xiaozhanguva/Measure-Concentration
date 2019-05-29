@@ -10,8 +10,8 @@ import setproctitle
 import os
 
 if __name__ == "__main__":
-	args = ld.argparser(dataset='mnist', epsilon=0.3, alpha=0.01)
-	# args = ld.argparser(dataset='cifar', epsilon=0.007843, alpha=0.05)
+	args = ld.argparser(dataset='mnist', metric='infinity', epsilon=0.3, alpha=0.01)
+	# args = ld.argparser(dataset='cifar', metric='infinity', epsilon=0.007843, alpha=0.05)
 	setproctitle.setproctitle('python')
 
 	print('dataset: {dataset}\t\t' 'metric: {metric}\t\t' 'epsilon: {epsilon}\t\t' 
@@ -28,8 +28,8 @@ if __name__ == "__main__":
 	#### load the datasets
 	if args.dataset == 'mnist':
 		train_loader, test_loader, valid_loader = ld.mnist_loaders(path='./data/'+args.dataset, 
-																	seed=args.seed, 																	    
-																	ratio=args.ratio)
+																seed=args.seed,
+																ratio=args.ratio)
 		for i, (X,y) in enumerate(train_loader):
 			train_data = X.view(-1, 28*28).numpy()
 		for i, (X,y) in enumerate(test_loader):
@@ -37,12 +37,12 @@ if __name__ == "__main__":
 
 	elif args.dataset == 'cifar':
 		train_loader, test_loader, valid_loader = ld.cifar_loaders(path='./data/'+args.dataset, 
-																	seed=args.seed, 
-																	ratio=args.ratio)
+																seed=args.seed, 
+																ratio=args.ratio)
 		for i, (X,y) in enumerate(train_loader):
 			train_data = X.view(-1, 3*32*32).numpy()
 		for i, (X,y) in enumerate(test_loader):
-			test_data = X.view(-1, 3*32*32).numpy()
+			test_data = X.view(-1, 3*32*32).numpy()	
 
 	elif args.dataset== 'fmnist':
 		train_loader, test_loader, valid_loader = ld.fashion_mnist_loaders(path='./data/'+args.dataset, 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
 		for i, (X,y) in enumerate(train_loader):
 			train_data = X.view(-1, 28*28).numpy()
 		for i, (X,y) in enumerate(test_loader):
-			test_data = X.view(-1, 28*28).numpy()			
+			test_data = X.view(-1, 28*28).numpy()	            	
 
 	elif args.dataset== 'svhn':
 		train_loader, test_loader, valid_loader = ld.svhn_loaders(path='./data/'+args.dataset, 
@@ -61,7 +61,7 @@ if __name__ == "__main__":
 			train_data = X.view(-1, 3*32*32).numpy()
 		for i, (X,y) in enumerate(test_loader):
 			test_data = X.view(-1, 3*32*32).numpy()
-			
+
 	else:
 		raise ValueError('specified dataset name not recognized.')
 

@@ -29,7 +29,7 @@ pip install --upgrade pip && pip install scipy sklearn numpy torch setproctitle
     ```
   * Next, run the proposed algorithm that finds a robust error region under <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\small&space;\ell_{\infty}" title="\small \ell_{\infty}" /> 
     ```text
-    python main_infinity.py --dataset mnist --epsilon 0.3 --q 0.629 --clusters 10
+    python main_infinity.py --dataset mnist --metric infinity --epsilon 0.3 --q 0.629 --clusters 10
     ```
 
 * Example for empirically measuring concentraion under <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\small&space;\ell_2" title="\small \ell_2" /> metric:
@@ -40,7 +40,7 @@ pip install --upgrade pip && pip install scipy sklearn numpy torch setproctitle
     ```
   * Next, run the proposed algorithm that finds a robust error region under <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\small&space;\ell_2" title="\small \ell_2" /> 
     ```text
-    python main_euclidean.py --dataset cifar --epsilon 0.2453 --alpha 0.05 --clusters 5
+    python main_euclidean.py --dataset cifar --metric euclidean --epsilon 0.2453 --alpha 0.05 --clusters 5
     ```
 
 # What is in this respository?
