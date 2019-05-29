@@ -31,8 +31,8 @@ if __name__ == "__main__":
 	#### load the datasets
 	if args.dataset == 'mnist':
 		train_loader, test_loader, valid_loader = ld.mnist_loaders(path='./data/'+args.dataset, 
-																   seed=args.seed,
-																   ratio=args.ratio)
+																	seed=args.seed,
+																	ratio=args.ratio)
 		for i, (X,y) in enumerate(train_loader):
 			train_data = X.view(-1, 28*28).numpy()
 		for i, (X,y) in enumerate(test_loader):
@@ -40,8 +40,8 @@ if __name__ == "__main__":
 
 	elif args.dataset == 'cifar':
 		train_loader, test_loader, valid_loader = ld.cifar_loaders(path='./data/'+args.dataset, 
-																   seed=args.seed, 
-																   ratio=args.ratio)
+																	seed=args.seed, 
+																	ratio=args.ratio)
 		for i, (X,y) in enumerate(train_loader):
 			train_data = X.view(-1, 3*32*32).numpy()
 		for i, (X,y) in enumerate(test_loader):

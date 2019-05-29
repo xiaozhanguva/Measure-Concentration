@@ -2,8 +2,8 @@
 ####          (l2-norm bounded perturbations on MNIST and CIFAR-10 datasets)
 ####
 #### strategy: cover alpha-fraction of images with T union of balls as the error region,
-####           place the ball one-by-one such that each placement has minium expansion
-####			(use gpus for acceleration)
+####           place the ball one-by-one such that each placement has minium expansion (use gpus for acceleration)
+####		   
 
 import load_data as ld
 import numpy as np 
@@ -43,8 +43,8 @@ if __name__ == "__main__":
 	#### load the datasets
 	if args.dataset == 'mnist':
 		train_loader, test_loader, valid_loader = ld.mnist_loaders(path='./data/'+args.dataset, 
-																   seed=args.seed,
-																   ratio=args.ratio)
+																	seed=args.seed,
+																	ratio=args.ratio)
 		for i, (X,y) in enumerate(train_loader):
 			train_data = X.view(-1, 28*28).to(device)
 		for i, (X,y) in enumerate(test_loader):
@@ -52,8 +52,8 @@ if __name__ == "__main__":
 
 	elif args.dataset == 'cifar':
 		train_loader, test_loader, valid_loader = ld.cifar_loaders(path='./data/'+args.dataset, 
-																   seed=args.seed, 
-																   ratio=args.ratio)
+																	seed=args.seed, 
+																	ratio=args.ratio)
 		for i, (X,y) in enumerate(train_loader):
 			train_data = X.view(-1, 3*32*32).to(device)
 		for i, (X,y) in enumerate(test_loader):
