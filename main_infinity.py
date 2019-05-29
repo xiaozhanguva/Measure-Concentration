@@ -13,10 +13,8 @@ import setproctitle
 import os
 
 if __name__ == "__main__":
-	args = ld.argparser(dataset='mnist', metric='infinity', epsilon=0.3,
-						k=50, q=0.703, clusters=10, iter=30, repeat=10)
-	# args = ld.argparser(dataset='cifar', metric='infinity', epsilon=0.007843,
-	# 				k=50, q=0.683, clusters=10, iter=30, repeat=10)
+	args = ld.argparser(dataset='mnist', epsilon=0.3, q=0.703, clusters=10)
+	# args = ld.argparser(dataset='cifar', epsilon=0.007843, q=0.683, clusters=10)
 	setproctitle.setproctitle('python')
 
 	print('dataset: {dataset}\t\t' 'metric: {metric}\t\t' 'epsilon: {epsilon}\t\t' 'k: {k}\t\t' 

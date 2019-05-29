@@ -1,6 +1,6 @@
 #### exploratory data analysis
 #### obtain the k-nearest-neighbour distance estimates on the training dataset
-#### (adapted DeBaCl library for constructing knn graph)
+#### (adapt the implementation of constructing knn graph function in DeBaCl)
 
 import load_data as ld
 import numpy as np

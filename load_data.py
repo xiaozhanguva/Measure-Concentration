@@ -111,7 +111,7 @@ def svhn_loaders(path, ratio, seed=None):
 
 
 #### define the argparser for simplicity
-def argparser(dataset=None, metric=None, epsilon=0.3, k=50, q=0.8, clusters=20,
+def argparser(dataset=None, metric=None, epsilon=0.3, k=50, q=0.8, clusters=10,
               iter=30, repeat=10, alpha=0.01, seed=0, ratio=0.2, verbose=2000, delta=0.01):
     parser = argparse.ArgumentParser()
 

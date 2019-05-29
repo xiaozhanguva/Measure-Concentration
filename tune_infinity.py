@@ -10,10 +10,8 @@ import setproctitle
 import os
 
 if __name__ == "__main__":
-	args = ld.argparser(dataset='mnist', metric='infinity', epsilon=0.3, 
-						alpha=0.01, k=50, iter=30)
-	# args = ld.argparser(dataset='cifar', metric='infinity', epsilon=0.007843, 
-	# 					alpha=0.05, k=50, iter=30)
+	args = ld.argparser(dataset='mnist', epsilon=0.3, alpha=0.01)
+	# args = ld.argparser(dataset='cifar', epsilon=0.007843, alpha=0.05)
 	setproctitle.setproctitle('python')
 
 	print('dataset: {dataset}\t\t' 'metric: {metric}\t\t' 'epsilon: {epsilon}\t\t' 
@@ -75,7 +73,7 @@ if __name__ == "__main__":
 		raise ValueError('knn distance estimates file not exist')
 
 	#### kmeans clustering for each combination (n_cluster, q)
-	cluster_arr = np.arange(5, 11, 5)
+	cluster_arr = np.arange(5, 21, 5)
 	res_file = open(res_filepath+'/epsilon_'+str(args.epsilon)+'.txt', "w")
 	best_file = open(res_filepath+'/epsilon_'+str(args.epsilon)+'_best.txt', "w")
 

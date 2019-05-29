@@ -17,10 +17,8 @@ import math
 import os
 
 if __name__ == "__main__":
-	args = ld.argparser(dataset='mnist', metric='euclidean', epsilon=1.58, 
-						alpha=0.01, clusters=10, delta=0.25)
-	# args = ld.argparser(dataset='cifar', metric='euclidean', epsilon=0.2453,
-	# 				    alpha=0.05, clusters=5, delta=0)
+	args = ld.argparser(dataset='mnist', epsilon=1.58, alpha=0.01, clusters=10, delta=0.25)
+	# args = ld.argparser(dataset='cifar', epsilon=0.2453, alpha=0.05, clusters=5, delta=0)
 	setproctitle.setproctitle('python')
 
 	print('dataset: {dataset}\t\t' 'metric: {metric}\t\t'
