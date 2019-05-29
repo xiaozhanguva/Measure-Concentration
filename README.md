@@ -3,7 +3,7 @@
 The goal of this project:
 * Develop a systematic framework to measure concentration for arbitrary distributions
 
-* Theoretically, prove that the emprical concentration with respect to special collection of subsets will converge to the actual concentration asymptotically
+* Theoretically, prove that the empirical concentration with respect to special collection of subsets will converge to the actual concentration asymptotically
 
 * Empirically, propose algorithms for measuring concentration of benchmark image distributions under both <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\small&space;\ell_{\infty}" title="\small \ell_{\infty}" /> and <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\small&space;\ell_2" title="\small \ell_2" /> distance metrics
 
@@ -45,9 +45,9 @@ pip install --upgrade pip && pip install scipy sklearn numpy torch setproctitle
 
 # What is in this respository?
 * ```load_data.py```: defines argparser and dataloaders for several benchmark image datasets
-* ```preliminary.py```: find the k-nearest neighbors on a given training dataset
-* ```main_infinity.py```: main function for emprically measuring the concentration for <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\small&space;\ell_{\infty}" title="\small \ell_{\infty}" /> metric based on complement of union of hyperrectangles
-* ```main_euclidean.py```: main function for emprically measuring the concentration for <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\small&space;\ell_2" title="\small \ell_2" /> metric based on union of balls
+* ```preliminary.py```: finds the k-nearest neighbors for each example in a given training dataset
+* ```main_infinity.py```: main function for emprically measuring concentration under <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\small&space;\ell_{\infty}" title="\small \ell_{\infty}" /> metric based on complement of union of hyperrectangles
+* ```main_euclidean.py```: main function for emprically measuring concentration under <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\small&space;\ell_2" title="\small \ell_2" /> metric based on union of balls
 * ```tune_infinity.py```: implements the tuning method (gird search for #clusters & binary search for q) for optimal concentration under <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\small&space;\ell_{\infty}" title="\small \ell_{\infty}" /> metric
 * ```tune_euclidean.py```: implements the tuning method (grid search for #clusters) for optimal concentration under <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\small&space;\ell_2" title="\small \ell_2" /> metric
-* ```baseline.py```: implements the baseline method that heuristically estimates concentration using linear hyperplane proposed in 
+* ```baseline.py```: implements the baseline method that heuristically estimates concentration using linear hyperplane proposed in [Gilmer et al. (2018)](https://arxiv.org/abs/1801.02774)
