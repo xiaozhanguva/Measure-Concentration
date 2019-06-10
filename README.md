@@ -1,6 +1,6 @@
 # Empirically Mearsuring Concentration: Fundamental Limits on Intrinsic Robustness
 
-The goal of this project:
+The goal of this project [(link to the original ArXiv paper)](https://arxiv.org/abs/1905.12202):
 * Develop a systematic framework to measure concentration for arbitrary distributions
 
 * Theoretically, prove that the empirical concentration with respect to special collection of subsets will converge to the actual concentration asymptotically
