@@ -21,8 +21,46 @@ try:
     _HAS_SKLEARN = True
 except:
     _HAS_SKLEARN = False
+    
+    
+#### knn graph construction (adapted from DeBaCl library)
+def knn_graph(X, k, method='brute_force', leaf_size=30, metric='euclidean'):
+    n, p = X.shape
+    if method == 'kd_tree':
+        if _HAS_SKLEARN:
+            kdtree = _sknbr.KDTree(X, leaf_size=leaf_size, metric=metric)
+            distances, neighbors = kdtree.query(X, k=k, return_distance=True,
+                                                sort_results=True)
+            radii = distances[:, -1]
+        else:
+            raise ImportError("The scikit-learn library could not be loaded." +
+                              " It is required for the 'kd-tree' method.")
 
+    if method == 'ball_tree':
+        if _HAS_SKLEARN:
+            btree = _sknbr.BallTree(X, leaf_size=leaf_size, metric=metric)
+            distances, neighbors = btree.query(X, k=k, return_distance=True,
+                                               sort_results=True)
+            radii = distances[:, -1]
+        else:
+            raise ImportError("The scikit-learn library could not be loaded." +
+                              " It is required for the 'ball-tree' method.")
 
+    else:  # assume brute-force
+        if not _HAS_SCIPY:
+            raise ImportError("The 'scipy' module could not be loaded. " +
+                              "It is required for the 'brute_force' method " +
+                              "for building a knn similarity graph.")
+
+        d = _spd.pdist(X, metric=metric)
+        D = _spd.squareform(d)
+        rank = _np.argsort(D, axis=1)
+        neighbors = rank[:, 0:k]
+        k_nbr = neighbors[:, -1]
+        radii = D[_np.arange(n), k_nbr]
+        
+    return neighbors, radii
+    
 if __name__ == "__main__":
     args = ld.argparser(dataset='mnist', metric='infinity', k=50)
     # args = ld.argparser(dataset='cifar', metric='euclidean', alpha=0.05)
@@ -94,41 +132,3 @@ if __name__ == "__main__":
     else:
         raise ValueError('Unknown type of metric')
 
-
-#### knn graph construction (adapted from DeBaCl library)
-def knn_graph(X, k, method='brute_force', leaf_size=30, metric='euclidean'):
-    n, p = X.shape
-    if method == 'kd_tree':
-        if _HAS_SKLEARN:
-            kdtree = _sknbr.KDTree(X, leaf_size=leaf_size, metric=metric)
-            distances, neighbors = kdtree.query(X, k=k, return_distance=True,
-                                                sort_results=True)
-            radii = distances[:, -1]
-        else:
-            raise ImportError("The scikit-learn library could not be loaded." +
-                              " It is required for the 'kd-tree' method.")
-
-    if method == 'ball_tree':
-        if _HAS_SKLEARN:
-            btree = _sknbr.BallTree(X, leaf_size=leaf_size, metric=metric)
-            distances, neighbors = btree.query(X, k=k, return_distance=True,
-                                               sort_results=True)
-            radii = distances[:, -1]
-        else:
-            raise ImportError("The scikit-learn library could not be loaded." +
-                              " It is required for the 'ball-tree' method.")
-
-    else:  # assume brute-force
-        if not _HAS_SCIPY:
-            raise ImportError("The 'scipy' module could not be loaded. " +
-                              "It is required for the 'brute_force' method " +
-                              "for building a knn similarity graph.")
-
-        d = _spd.pdist(X, metric=metric)
-        D = _spd.squareform(d)
-        rank = _np.argsort(D, axis=1)
-        neighbors = rank[:, 0:k]
-        k_nbr = neighbors[:, -1]
-        radii = D[_np.arange(n), k_nbr]
-
-    return neighbors, radii
