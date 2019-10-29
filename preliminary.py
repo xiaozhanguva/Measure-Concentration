@@ -21,8 +21,8 @@ try:
     _HAS_SKLEARN = True
 except:
     _HAS_SKLEARN = False
-    
-    
+
+
 #### knn graph construction (adapted from DeBaCl library)
 def knn_graph(X, k, method='brute_force', leaf_size=30, metric='euclidean'):
     n, p = X.shape
@@ -54,13 +54,13 @@ def knn_graph(X, k, method='brute_force', leaf_size=30, metric='euclidean'):
 
         d = _spd.pdist(X, metric=metric)
         D = _spd.squareform(d)
-        rank = _np.argsort(D, axis=1)
+        rank = np.argsort(D, axis=1)
         neighbors = rank[:, 0:k]
         k_nbr = neighbors[:, -1]
-        radii = D[_np.arange(n), k_nbr]
-        
+        radii = D[np.arange(n), k_nbr]
+
     return neighbors, radii
-    
+
 if __name__ == "__main__":
     args = ld.argparser(dataset='mnist', metric='infinity', k=50)
     # args = ld.argparser(dataset='cifar', metric='euclidean', alpha=0.05)
@@ -68,40 +68,32 @@ if __name__ == "__main__":
 
     #### load the datasets
     if args.dataset== 'mnist':
-        train_loader, test_loader, valid_loader = ld.mnist_loaders(path='./data/'+args.dataset, 
+        train_loader, _, valid_loader = ld.mnist_loaders(path='./data/'+args.dataset, 
                                                                     seed=args.seed, 																	    
                                                                     ratio=args.ratio)
         for i, (X,y) in enumerate(train_loader):
             train_data = X.view(-1, 28*28).numpy()
-        for i, (X,y) in enumerate(test_loader):
-            test_data = X.view(-1, 28*28).numpy()
 
     elif args.dataset== 'fmnist':
-        train_loader, test_loader, valid_loader = ld.fashion_mnist_loaders(path='./data/'+args.dataset, 
+        train_loader, _, valid_loader = ld.fashion_mnist_loaders(path='./data/'+args.dataset, 
                                                                             seed=args.seed, 
                                                                             ratio=args.ratio)
         for i, (X,y) in enumerate(train_loader):
             train_data = X.view(-1, 28*28).numpy()
-        for i, (X,y) in enumerate(test_loader):
-            test_data = X.view(-1, 28*28).numpy()
-
+        
     elif args.dataset== 'cifar':
-        train_loader, test_loader, valid_loader = ld.cifar_loaders(path='./data/'+args.dataset, 
+        train_loader, _, valid_loader = ld.cifar_loaders(path='./data/'+args.dataset, 
                                                                     seed=args.seed, 
                                                                     ratio=args.ratio)
         for i, (X,y) in enumerate(train_loader):
             train_data = X.view(-1, 3*32*32).numpy()
-        for i, (X,y) in enumerate(test_loader):
-            test_data = X.view(-1, 3*32*32).numpy()
 
     elif args.dataset== 'svhn':
-        train_loader, test_loader, valid_loader = ld.svhn_loaders(path='./data/'+args.dataset, 
+        train_loader, _, valid_loader = ld.svhn_loaders(path='./data/'+args.dataset, 
                                                                     seed=args.seed, 
                                                                     ratio=args.ratio)
         for i, (X,y) in enumerate(train_loader):
             train_data = X.view(-1, 3*32*32).numpy()
-        for i, (X,y) in enumerate(test_loader):
-            test_data = X.view(-1, 3*32*32).numpy()
             
     else:
         raise ValueError('Specified dataset name not recognized')
@@ -116,6 +108,7 @@ if __name__ == "__main__":
         ## save the radius (k-th nearest neighbor) for each example
         if not os.path.exists(savepath):
             _, radii = knn_graph(train_data, k=args.k, method='ball-tree', metric='cityblock')
+            np.savetxt(savepath, radii)
         else:
             print("radii file already saved for L-infinity case.")
         
@@ -126,6 +119,7 @@ if __name__ == "__main__":
         ## save the nearest neighbors for each example
         if not os.path.exists(savepath):
             neighbors, _ = knn_graph(train_data, k=args.k, method='ball-tree')
+            np.save(savepath, neighbors)
         else:
             print("neighbors file already saved for L-2 case.")
 
